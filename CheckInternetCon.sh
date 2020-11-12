@@ -4,10 +4,8 @@
 pingData=$(ping -c4 8.8.8.8 | grep loss)
 
 # voy cortando la cadena anterior, hasta quedarme con el numero en % de paq. perdidos:
-porcentaje=$(echo $linea | cut -d"," -f3 | cut -d"%" -f1)
+porcentaje=$(echo $pingData | cut -d"," -f3 | cut -d"%" -f1)
 
 # guardo el porcentaje obtenido en un archivo:
-#touch pingData.txt
-# echo $porcentaje  > pingData.txt
-
-echo "Porcentaje= $porcentaje"
+touch pingData.txt
+echo $porcentaje  > pingData.txt
