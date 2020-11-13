@@ -11,17 +11,3 @@ driver = Chrome(executable_path='/usr/local/bin/chromedriver').get("google.com")
 # driver.close()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
