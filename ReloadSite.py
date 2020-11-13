@@ -2,22 +2,42 @@
 
 import subprocess
 import webbrowser
+import pandas
+import selenium
+from selenium.webdriver import Chrome
 
-try:
-    # llamo a un subproceso para ejecutar el script:
-    subprocess.call("./CheckInternetCon.sh", shell=True)
+#from selenium.webdriver.support
 
-    # obtengo el porcentaje de paquetes perdidos a hacer un ping (con Script CheckInternetCon.sh)
-    file = open("pingData.txt", "r")
-    porcentaje = int(file.read(1))    
-    file.close()
+driver = Chrome()
 
-    if porcentaje >= 50:
-        print("Mala conexion")
-    else:
-        print("Buena conexion.")
+def checkInternetConnextion():
+    porcentaje = 100
+    try:
+        # llamo a un subproceso para ejecutar el script:
+        subprocess.call("./CheckInternetCon.sh", shell=True)    
+    except:
+        print("Error al llamar al subproceso.")
+        pass
 
-except:
-    print("No se pudo llamar al subproceso.")
+    try:
+        # obtengo el porcentaje de paquetes perdidos a hacer un ping (con Script CheckInternetCon.sh)
+        file = open("pingData.txt", "r")
+        porcentaje = int(file.read(1))    
+        file.close()
+        pass
+    except:
+        print("Error al leer archivo.")
+        pass
 
+    return porcentaje
+    pass
+
+def reloadPage():
+    # solo recargo la pagina si hay buena conexion
+    if checkInternetConnextion() <= 25:
+        print("recargar ...")
+
+
+
+reloadPage();
 
